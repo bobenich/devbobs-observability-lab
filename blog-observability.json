@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "otel-collector-telemetry-contract",
+    "date": "2026-09-19",
+    "readingTime": "9 мин",
+    "title": "Кейс: единый контракт телеметрии с OpenTelemetry Collector",
+    "excerpt": "Как связать метрики, логи и трассировки без привязки приложения к одному вендору — и что проверить до запуска в production.",
+    "tags": ["Observability", "OpenTelemetry", "Grafana"],
+    "repositoryUrl": "https://github.com/bobenich/devbobs-observability-lab",
+    "repositoryLabel": "Конфигурация Collector и схема из 6 серверов"
+  },
+  {
+    "slug": "slo-alerting-error-budget",
+    "date": "2026-09-19",
+    "readingTime": "8 мин",
+    "title": "Кейс: как заменить шумные алерты на SLO и error budget",
+    "excerpt": "Переходим от сигналов «CPU высокий» к алертам, которые отражают влияние на пользователя и ведут к понятному runbook.",
+    "tags": ["SRE", "Prometheus", "Alertmanager"],
+    "repositoryUrl": "https://github.com/bobenich/devbobs-observability-lab",
+    "repositoryLabel": "Правила Prometheus и runbook"
+  },
+  {
+    "slug": "kubernetes-capacity-observability",
+    "date": "2026-09-19",
+    "readingTime": "7 мин",
+    "title": "Кейс: observability расходов и ёмкости Kubernetes",
+    "excerpt": "Как увидеть лишние requests, не ухудшить latency и превратить права на ресурсы из догадки в инженерное решение.",
+    "tags": ["Kubernetes", "FinOps", "Grafana"],
+    "repositoryUrl": "https://github.com/bobenich/devbobs-observability-lab",
+    "repositoryLabel": "Топология и шаблоны развёртывания"
+  },
+  {
+    "slug": "incident-navigation-grafana-tempo-loki",
+    "date": "2026-09-19",
+    "readingTime": "8 мин",
+    "title": "Кейс: навигация по инциденту через Grafana, Tempo и Loki",
+    "excerpt": "Настраиваем путь от сработавшего SLO до trace, лога и релиза так, чтобы контекст не терялся при передаче дежурства.",
+    "tags": ["Incident response", "Tempo", "Loki"],
+    "repositoryUrl": "https://github.com/bobenich/devbobs-observability-lab",
+    "repositoryLabel": "Runbook и практические шаблоны"
+  }
+]

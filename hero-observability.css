@@ -1,0 +1,37 @@
+/* Add this stylesheet after the current hero styles. It respects reduced motion. */
+.hero-visual {
+  position: relative;
+  isolation: isolate;
+  animation: devbobs-float 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -12%;
+  pointer-events: none;
+  opacity: .34;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.82) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255,255,255,.5) 0 .7px, transparent 1.4px);
+  background-size: 83px 107px, 131px 149px;
+  background-position: 0 0, 39px -64px;
+  animation: devbobs-dust 22s linear infinite;
+  mask-image: radial-gradient(ellipse at center, #000 0%, rgba(0,0,0,.65) 55%, transparent 76%);
+}
+
+@keyframes devbobs-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -12px, 0) rotate(.35deg); }
+}
+
+@keyframes devbobs-dust {
+  from { background-position: 0 -120px, 39px -210px; }
+  to { background-position: 0 260px, 39px 170px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual, .hero-visual::after { animation: none; }
+}

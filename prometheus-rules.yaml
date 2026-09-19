@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: checkout-slo
+  namespace: observability
+spec:
+  groups:
+    - name: checkout.slo
+      rules:
+        - record: job:http_request_error_ratio:rate5m
+          expr: sum(rate(http_server_request_duration_seconds_count{service_name="checkout",status_code=~"5.."}[5m])) / sum(rate(http_server_request_duration_seconds_count{service_name="checkout"}[5m]))
+        - alert: CheckoutErrorBudgetBurn
+          expr: job:http_request_error_ratio:rate5m > 0.02
+          for: 10m
+          labels: { severity: page, service: checkout }
+          annotations:
+            summary: "Checkout error rate exceeds 2% for 10 minutes"
+            runbook_url: "https://github.com/bobenich/devbobs-observability-lab/blob/main/docs/runbooks/checkout-error-budget.md"

@@ -1,0 +1,31 @@
+---
+- name: Baseline for every host
+  hosts: all
+  become: true
+  tasks:
+    - name: Install baseline packages
+      ansible.builtin.apt:
+        name: [ca-certificates, curl, chrony]
+        update_cache: true
+        state: present
+    - name: Enable time synchronisation
+      ansible.builtin.service:
+        name: chrony
+        enabled: true
+        state: started
+
+- name: Prepare Kubernetes nodes
+  hosts: controlplane:workers
+  become: true
+  tasks:
+    - name: Disable swap for Kubernetes
+      ansible.builtin.command: swapoff -a
+      changed_when: false
+    - name: Ensure kernel modules are available
+      ansible.builtin.copy:
+        dest: /etc/modules-load.d/k8s.conf
+        content: "overlay\nbr_netfilter\n"
+        mode: "0644"
+
+# Install k3s or your managed-Kubernetes agent in a separate, reviewed role.
+# Pass join tokens only through Ansible Vault / your secret manager.

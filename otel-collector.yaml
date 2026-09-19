@@ -1,0 +1,28 @@
+apiVersion: opentelemetry.io/v1beta1
+kind: OpenTelemetryCollector
+metadata:
+  name: gateway
+  namespace: observability
+spec:
+  mode: deployment
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc: {}
+          http: {}
+    processors:
+      memory_limiter: { check_interval: 1s, limit_mib: 512 }
+      batch: {}
+      resource:
+        attributes:
+          - key: deployment.environment
+            value: production
+            action: upsert
+    exporters:
+      otlp/tempo: { endpoint: tempo.observability.svc:4317, tls: { insecure: true } }
+      prometheus: { endpoint: 0.0.0.0:8889 }
+    service:
+      pipelines:
+        traces: { receivers: [otlp], processors: [memory_limiter, resource, batch], exporters: [otlp/tempo] }
+        metrics: { receivers: [otlp], processors: [memory_limiter, resource, batch], exporters: [prometheus] }
